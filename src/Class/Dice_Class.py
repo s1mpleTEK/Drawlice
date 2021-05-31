@@ -1,5 +1,12 @@
 import random
 
+dice_art = {1: "-----\n|   |\n| o |\n|   |\n-----",
+            2: "-----\n|o  |\n|   |\n|  o|\n-----",
+            3: "-----\n|o  |\n| o |\n|  o|\n-----",
+            4: "-----\n|o o|\n|   |\n|o o|\n-----",
+            5: "-----\n|o o|\n| o |\n|o o|\n-----",
+            6: "-----\n|o o|\n|o o|\n|o o|\n-----"}
+
 class Dice:
     """
     Le status correspond à l'attaque ou la defense du joueur;
@@ -17,11 +24,16 @@ class Dice:
         self.physic = 0
         self.stock = 0
 
+    # Permet d'afficher les dès
+    def display(self):
+        print(f"Blanc: {self._status}  Bleu: {self.magic}  Rouge: {self.physic}")
+
     # Permet de lancer les dès
     def roll(self):
         self.status = self.set_status(random.randint(1, 6))
         self.magic = random.randint(1, 6)
         self.physic = random.randint(1, 6)
+        self.display()
         self.db_tp_verification([self._status, self.magic, self.physic])
 
     # Permet de changer la valuer de status et de _status
@@ -33,21 +45,18 @@ class Dice:
     def db_tp_verification(self, dices):
         counter = 0
         _sum = []
-        print(dices)
         for i in range(len(dices)):
             if dices[i] == dices[i-1] or dices[i] == dices[i-2]:
                 _sum.append(dices[i])
                 counter += 1
 
         if len(_sum) == 2:
-            print("wow it's double")
+            print("wow un double!!")
             self.stock += sum(_sum)
-            print(f"Stock: {self.stock}\n")
+            print(f"Stock: {self.stock}")
             return self.roll()
         elif len(_sum) == 3:
-            print("wow it's triple")
+            print("wow un triple!!")
             self.stock += sum(_sum)
-            print(f"Stock: {self.stock}\n")
+            print(f"Stock: {self.stock}")
             return self.roll()
-        self.stock = 0
-        print(f"Stock: {self.stock}")

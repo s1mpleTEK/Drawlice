@@ -1,5 +1,3 @@
-from .Class.Player_Class import Player
-
-def main():
-    print("Drawlice")
-    player = Player("name")
+def main(game):
+    game.start()
+    game.loop()
