@@ -104,10 +104,13 @@ class Game(Player):
             if self.players[0].pv <= 0 and self.players[1].pv <= 0:
                 print("Égalité")
                 return
+            elif self.players[0].pv <= 0:
+                print(f"Joueur {self.players[1].name} gagne!")
+                return
+            elif self.players[1].pv <= 0:
+                print(f"Joueur {self.players[0].name} gagne!")
+                return
             for i in range(len(self.players)):
-                if self.players[i].pv <= 0:
-                    print(f"Joueur {self.players[i+1].name} gagne!")
-                    return
                 print(f"\nTour de {self.players[i].name}:")
                 self.players[i].dice.roll()
             self.combat()
